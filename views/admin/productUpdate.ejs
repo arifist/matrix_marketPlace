@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Güncelle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px 0; /* Üstten ve alttan boşluk eklendi */
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #F9F7F7; /* Arka plan rengi */
+        }
+        .container {
+            width: 400px; /* Genişlik biraz arttırıldı */
+            padding: 40px;
+            background: #DBE2EF; /* Ana konteyner arka plan rengi */
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 30px;
+            color: #112D4E; /* Başlık rengi */
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select,
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #fff; /* Input arka plan rengi */
+        }
+        input[type="submit"] {
+            background-color: #3F72AF; /* Gönder butonu arka plan rengi */
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #2A4365; /* Gönder butonu hover arka plan rengi */
+        }
+        .login {
+            margin-top: 15px;
+            color: #666;
+        }
+        .login a {
+            color: #3F72AF; /* Oturum aç linki rengi */
+            text-decoration: none;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Matrix E-Ticaret</h2>
+        <h3>Ürün Güncelle</h3>
+        <form id="productForm" action="/update" method="post">
+            <input type="hidden" name="productId" value="1"> <!-- Güncellenecek ürünün ID'si -->
+            <input type="text" name="name" placeholder="Ürün Adı" value=<%= productArray[id-1].product_name %> required><br>
+            <input type="number" name="price" placeholder="Ürün Fiyatı" value=<%= productArray[id-1].product_price %> required><br>
+            <input type="text" name="imageUrl" placeholder="Resim URL'si" value=<%= productArray[id-1].product_imageUrl %>><br>
+            <textarea name="productDetail" placeholder="Ürün Detayı" rows="10"><%= productArray[id-1].product_productDetail %></textarea><br>
+            <input type="submit" value="Güncelle">
+        </form>
+        <div class="login">
+            <a href="/">Ana Sayfa</a>
+        </div>
+    </div>
+</body>
+</html>

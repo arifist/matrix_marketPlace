@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix E-Ticaret - Kayıt Ol</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px 0; /* Üstten ve alttan boşluk eklendi */
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #F9F7F7; /* Arka plan rengi */
+        }
+        .container {
+            width: 400px; /* Genişlik biraz arttırıldı */
+            padding: 40px;
+            background: #DBE2EF; /* Ana konteyner arka plan rengi */
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 30px;
+            color: #112D4E; /* Başlık rengi */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select,
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #fff; /* Input arka plan rengi */
+        }
+        input[type="submit"] {
+            background-color: #3F72AF; /* Gönder butonu arka plan rengi */
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #2A4365; /* Gönder butonu hover arka plan rengi */
+        }
+        .login {
+            margin-top: 15px;
+            color: #666;
+        }
+        .login a {
+            color: #3F72AF; /* Oturum aç linki rengi */
+            text-decoration: none;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Matrix E-Ticaret</h2>
+        <h3>Kayıt Ol</h3>
+        <form action="/register" method="post" onsubmit="return validateForm()">
+            <input type="text" name="firstName" placeholder="İsim" required><br><br><br> <!-- Üstte boşluk eklendi -->
+            <input type="text" name="lastName" placeholder="Soyisim" required><br><br><br> <!-- Üstte boşluk eklendi -->
+            <select name="gender" required>
+                <option value="" disabled selected>Cinsiyet Seçiniz</option>
+                <option value="male">Erkek</option>
+                <option value="female">Kadın</option>
+                <option value="other">Diğer</option>
+            </select><br><br><br> <!-- Üstte boşluk eklendi -->
+            <input type="date" name="birthdate" required><br><br><br> <!-- Üstte boşluk eklendi -->
+            <input type="email" name="email" id="email" placeholder="E-posta" required><br><br><br> <!-- Üstte ve altta boşluk eklendi -->
+            <input type="password" name="password" id="password" placeholder="Şifre" required><br><br><br> <!-- Üstte ve altta boşluk eklendi -->
+            <input type="password" name="password2" id="password2" placeholder="Şifre Tekrarı" required><br>
+            <div id="passwordError" class="error"></div>
+            <input type="submit" value="Kayıt Ol">
+        </form>
+        <div class="login">
+            Zaten bir hesabınız var mı? <a href="/login">Oturum Aç</a>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            const password = document.getElementById("password").value;
+            const password2 = document.getElementById("password2").value;
+            const email = document.getElementById("email").value;
+            const passwordError = document.getElementById("passwordError");
+
+            // Şifrenin belirli kriterleri karşılamasını sağlama
+            const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+            if (!password.match(passwordPattern)) {
+                passwordError.innerHTML = "Şifreniz en az bir büyük harf, bir küçük harf ve bir rakam içermeli ve en az 6, en fazla 20 karakter uzunluğunda olmalıdır.";
+                return false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+
+            // Şifrelerin eşleşmesini kontrol etme
+            if (password !== password2) {
+                passwordError.innerHTML = "Şifreler uyuşmuyor.";
+                return false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+
+            // Doğru e-posta formatı kontrolü
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.match(emailPattern)) {
+                passwordError.innerHTML = "Geçerli bir e-posta adresi giriniz.";
+                return false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
