@@ -9,23 +9,32 @@ exports.productController = (req, res, next) => {
 
 exports.productAdd = (req, res, next) => {
     res.render("admin/productAdd");
-    console.log("*************")
-
 }
+
+// exports.productAddPost = (req, res, next) => {
+//     console.log(req.body);
+//     console.log("--------------");
+//     const { name, price, imageUrl, productDetail } = req.body;
+
+//     dataAccess.addProduct({ name, price, imageUrl, productDetail });
+//     res.redirect("admin/productAdd"); // Ana sayfaya yönlendir
+// }
 
 exports.productAddPost = (req, res, next) => {
-    console.log(req.body);
-    console.log("--------------");
-    const { name, price, imageUrl, productDetail } = req.body;
+    const body=req.body;
+    console.log("Type=",typeof body,body);
+    console.log(body.title);
+    console.log("--------------------------------------------")
+    const newdata={
+        name:body.productName,
+        price:body.productPrice,
+        imageUrl:body.imageUrl,
+        productDetail:body.productDetail
+    }
+    dataAccess.addProduct(newdata);
+};
 
-    dataAccess.addProduct({ name, price, imageUrl, productDetail });
-    res.redirect("admin/productAdd"); // Ana sayfaya yönlendir
-}
-// exports.productAddPost = (req, res, next) => {
-//     const { name, price, imageUrl, productDetail } = req.body;
-//     dataAccess.addProduct(db, { name, price, imageUrl, productDetail }); // Veritabanı bağlantısını iletin
-//     res.redirect("/admin/productAdd"); // Ana sayfaya yönlendir
-//   };
+
 
 exports.productUpdate = (req, res, next) => {
     res.render("admin/productUpdate", { productArray: dataAccess, id: req.params.id });

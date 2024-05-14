@@ -13,7 +13,10 @@ router.get("/products",userController.productAll);
 
 router.get("/productDetails/:id",userController.productDetails);
 
-router.get("/signin",userController.signIn);
+router.get("/signin",userController.signInGet);
+
+router.post("/signin",userController.signInPost);
+
 
 //  router.get("/signup",userController.signUp);
 

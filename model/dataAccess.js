@@ -21,7 +21,7 @@ function addProduct(productData){
               console.log(`A row has been inserted with rowid ${this.lastID}`);
           });
 };
-module.exports=addProduct;
+module.exports = { addProduct };
 
     // Örnek bir ürün ekleyelim
     const sampleProduct = {
@@ -32,7 +32,7 @@ module.exports=addProduct;
     };
 
     // Ürün ekleme fonksiyonunu çağır
-      // addProduct(sampleProduct);
+      //  addProduct(sampleProduct);
 
 
 

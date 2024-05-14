@@ -4,6 +4,7 @@ const userRouter=require("./routes/user");
 const path=require("path");
 const app= express();
 const bodyParser = require('body-parser');
+const configSession=require("./middleware/config_Session.js");
 
 //temlate engine setting
 app.set('view engine', 'ejs');
@@ -15,6 +16,7 @@ app.use((req,res,next) => {
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(configSession);
 
 
 app.use("/admin",adminRouter);
