@@ -153,7 +153,7 @@ exports.adminSignInPost=async(req,res,next)=>{
     const user=adminLoginData.find(x=>x.email==req.body.email);
     if (user==undefined) {
         req.session.message={text:"Email hatali",class:"warning"}
-        return res.redirect("signInsigninaA");
+        return res.redirect("signin");
     }
     if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
         req.session.isAuth=1;
@@ -164,6 +164,6 @@ exports.adminSignInPost=async(req,res,next)=>{
     }
     //şifre uyuşmuyorsa
     req.session.message={text:"Şifre hatali",class:"warning"};
-    res.redirect("signina");
+    res.redirect("signin");
     
 }
