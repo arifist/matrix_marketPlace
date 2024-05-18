@@ -69,8 +69,11 @@
     <div class="container">
         <h2>Matrix E-Ticaret</h2>
         <h3>Ürün Sil</h3>
-        <form id="productForm" action="/delete" method="post">
-            <input type="number" name="productId" placeholder="Ürün ID'si" value=<%= productArray[id-1].product_id %> required><br> <!-- Silinecek ürünün ID'si -->
+        <form id="updateForm" method="post" action="/admin/productDelete/<%= id %>">
+            <input type="hidden" name="id" value="<%= id %>">
+            <label for="productId">Ürün Adı:</label>
+            <input type="text" id="productId" name="productId" value="<%= productArray.find(product => product.product_id == id).product_id %>" required><br>
+
             <input type="submit" value="Sil">
         </form>
         <div class="login">

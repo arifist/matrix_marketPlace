@@ -69,12 +69,25 @@
     <div class="container">
         <h2>Matrix E-Ticaret</h2>
         <h3>Ürün Güncelle</h3>
-        <form id="productForm" action="/update" method="post">
-            <input type="hidden" name="productId" value="1"> <!-- Güncellenecek ürünün ID'si -->
-            <input type="text" name="name" placeholder="Ürün Adı" value=<%= productArray[id-1].product_name %> required><br>
-            <input type="number" name="price" placeholder="Ürün Fiyatı" value=<%= productArray[id-1].product_price %> required><br>
-            <input type="text" name="imageUrl" placeholder="Resim URL'si" value=<%= productArray[id-1].product_imageUrl %>><br>
-            <textarea name="productDetail" placeholder="Ürün Detayı" rows="10"><%= productArray[id-1].product_productDetail %></textarea><br>
+        <form id="updateForm" method="post" action="/admin/productUpdate/<%= id %>">
+            <input type="hidden" name="id" value=<%= id %>>
+            
+            <label for="productName">Ürün Adı:</label>
+            <!-- <input type="text" id="productName" name="productName" value=<%= productArray[id-1].product_name %> required><br> -->
+            <input type="text" id="productName" name="productName" value="<%= productArray.find(product => product.product_id == id).product_name %>" required><br>
+
+            <label for="productPrice">Ürün Fiyatı:</label>
+            <!-- <input type="number" id="productPrice" name="productPrice" value=<%= productArray[0].product_price %> required><br> -->
+            <input type="number" id="productPrice" name="productPrice" value="<%= productArray.find(product => product.product_id == id).product_price %>" required><br>
+
+            <label for="imageUrl">Resim URL'si:</label>
+            <!-- <input type="text" id="imageUrl" name="imageUrl" value=<%= productArray[0].product_imageUrl %>><br> -->
+            <input type="text" id="imageUrl" name="imageUrl" value="<%= productArray.find(product => product.product_id == id).product_imageUrl %>"><br>
+
+            <label for="productDetail">Ürün Detayı:</label>
+            <!-- <textarea id="productDetail" name="productDetail" rows="4"><%= productArray[0].product_productDetail %></textarea><br> -->
+            <textarea id="productDetail" name="productDetail" rows="4"><%= productArray.find(product => product.product_id == id).product_productDetail %></textarea><br>
+
             <input type="submit" value="Güncelle">
         </form>
         <div class="login">

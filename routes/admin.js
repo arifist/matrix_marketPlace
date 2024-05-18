@@ -6,13 +6,15 @@ router.get("/productController",adminController.productController);
 
 router.get("/productAdd",adminController.productAdd);
 
-// router.post("/productAdd",adminController.productAdd);
-
 router.post("/productAdd",adminController.productAddPost);
 
-router.get("/productUpdate/:id",adminController.productUpdate);
+router.get("/productUpdate/:id",adminController.productUpdateGet);
 
-router.get("/productDelete/:id",adminController.productDelete);
+router.post("/productUpdate/:id",adminController.productUpdatePost);
+
+router.get("/productDelete/:id",adminController.productDeleteGet);
+
+router.post("/productDelete/:id",adminController.productDeletePost);
 
 
 module.exports = router;
