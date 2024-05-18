@@ -17,11 +17,9 @@ router.get("/signin",userController.signInGet);
 
 router.post("/signin",userController.signInPost);
 
-
 //  router.get("/signup",userController.signUp);
 
 router.post("/signup",userController.signUp);
-
 
 router.get("/cart/:id",userController.cart);
 

@@ -103,6 +103,7 @@ exports.signInPost=async(req,res,next)=>{
     
 }
 
+
 exports.signUp=(req,res,next)=>{
 
     res.render(path.join(__dirname,"../","views","user","signUp.ejs"));
@@ -114,6 +115,28 @@ exports.cart=(req,res,next)=>{
     res.render("user/cart",{productArray:productArray,id:req.params.id})
 }
 
+exports.cartHome=(req,res,next)=>{
+    db.all(`SELECT 
+    p.id AS product_id,
+    p.name AS product_name,
+    p.price AS product_price,
+    p.imageUrl AS product_imageUrl,
+    p.productDetail AS product_productDetail,
+    GROUP_CONCAT(c.id) AS comment_ids,
+    GROUP_CONCAT(c.text) AS comment_texts
+    FROM 
+        products p
+    LEFT JOIN 
+        comments c ON p.id = c.productId
+    GROUP BY
+    p.id;`, (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            return next(err);
+        }
+        res.render("user/cart", { productArray: rows });
+    });
+}
 
 
 

@@ -53,11 +53,6 @@ exports.productAddPost = (req, res, next) => {
 };
 
 
-
-// exports.productUpdateGet = (req, res, next) => {
-//     res.render("admin/productUpdate");
-// };
-
 exports.productUpdateGet = (req, res, next) => {
     db.all(`SELECT 
     p.id AS product_id,
@@ -101,8 +96,6 @@ exports.productUpdatePost = (req, res, next) => {
         res.redirect("/admin/productController"); // Güncelleme sonrası yönlendirilecek sayfa
     });
 };
-
-
 
 
 exports.productDeleteGet = (req, res, next) => {
