@@ -3,6 +3,7 @@ const express=require("express");
 // const productArray=require("../model/data");
 const productArray=require("../model/dataAccess");
 const userArray=require("../model/data");
+const db=require("../model/db");
 const loginData=require("../model/logindata");
 const bcrypt = require('bcrypt');
 
@@ -22,10 +23,54 @@ exports.communication=(req,res,next)=>{
 res.render(path.join(__dirname,"../","views","user","communication.ejs"));
 
 }
-exports.productAll=(req,res,next)=>{
-    res.render("user/products",{productArray:productArray})
-}
 
+// exports.productAll=(req,res,next)=>{
+//     res.render("user/products",{productArray:db})
+// }
+
+
+exports.productAll = (req, res, next) => {
+    db.all(`SELECT 
+    p.id AS product_id,
+    p.name AS product_name,
+    p.price AS product_price,
+    p.imageUrl AS product_imageUrl,
+    p.productDetail AS product_productDetail,
+    GROUP_CONCAT(c.id) AS comment_ids,
+    GROUP_CONCAT(c.text) AS comment_texts
+    FROM 
+        products p
+    LEFT JOIN 
+        comments c ON p.id = c.productId
+    GROUP BY
+    p.id;`, (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            return next(err);
+        }
+        res.render("user/products", { productArray: rows });
+    });
+};
+
+// exports.productAll=async (req,res,next)=>{
+//     const selectedData=await db.execute(`SELECT 
+//     p.id AS product_id,
+//     p.name AS product_name,
+//     p.price AS product_price,
+//     p.imageUrl AS product_imageUrl,
+//     p.productDetail AS product_productDetail,
+//     GROUP_CONCAT(c.id) AS comment_ids,
+//     GROUP_CONCAT(c.text) AS comment_texts
+//     FROM 
+//         products p
+//     LEFT JOIN 
+//         comments c ON p.id = c.productId
+//     GROUP BY
+//         p.id;`);
+//     console.log(selectedData);
+
+//     res.render("user/products",{productArray:selectedData[0]})
+// }
 
 exports.productDetails=(req,res,next)=>{
 

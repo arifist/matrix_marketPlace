@@ -14,13 +14,15 @@
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.3",
+    "csurf": "^1.11.0",
     "dialog-node": "^0.2.1",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "mongoose": "^8.3.2",
     "node-notifier": "^10.0.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

@@ -19,17 +19,19 @@ function addProduct(productData){
                   return console.error(err.message);
               }
               console.log(`A row has been inserted with rowid ${this.lastID}`);
+              productData.id = this.lastID; // Eklenen ürünün ID'sini al
+              productArray.push(productData); // productArray'e ekle
           });
 };
 module.exports = { addProduct };
 
     // Örnek bir ürün ekleyelim
-    const sampleProduct = {
-      name: 'Example Product',
-      price: 19.99,
-      imageUrl: 'example.jpg',
-      productDetail: 'This is an example product.'
-    };
+      const sampleProduct = {
+        name: 'Example Product',
+        price: 19.99,
+        imageUrl: 'example.jpg',
+        productDetail: 'This is an example product.'
+      };
 
     // Ürün ekleme fonksiyonunu çağır
       //  addProduct(sampleProduct);
@@ -43,6 +45,10 @@ module.exports = { addProduct };
           return console.error(err.message);
         }
         console.log(`Product with ID ${productId} has been deleted`);
+        const index = productArray.findIndex(product => product.id === productId);
+        if (index !== -1) {
+          productArray.splice(index, 1); // productArray'den sil
+        }
       });
     }
     module.exports=deleteProduct;
@@ -64,6 +70,10 @@ module.exports = { addProduct };
             return console.error(err.message);
           }
           console.log(`Product with ID ${productId} has been updated`);
+          const index = productArray.findIndex(product => product.id === productId);
+          if (index !== -1) {
+            productArray[index] = { ...productArray[index], ...updatedData }; // productArray'i güncelle
+          }
       });
     }
     module.exports=updateProduct;
