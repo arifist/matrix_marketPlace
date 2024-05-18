@@ -2,6 +2,9 @@ const dataAnc = require("../model/data");
 const dataAccess = require("../model/dataAccess");
 const bodyParser = require('body-parser');
 const db=require("../model/db");
+const path = require('path');
+const adminLoginData=require("../model/adminlogindata");
+const bcrypt = require('bcrypt');
 
 exports.productController = (req, res, next) => {
     db.all(`SELECT 
@@ -136,3 +139,31 @@ exports.productDeletePost = (req, res, next) => {
         res.redirect('/admin/productController');  // veya başka bir sayfaya yönlendirin
     });
 };
+
+
+exports.adminSignInGet=(req,res,next)=>{
+     res.render("admin/signin")
+    //res.render(path.join(__dirname,"../","views","admin","signina.ejs"));
+
+    
+}
+
+exports.adminSignInPost=async(req,res,next)=>{
+
+    const user=adminLoginData.find(x=>x.email==req.body.email);
+    if (user==undefined) {
+        req.session.message={text:"Email hatali",class:"warning"}
+        return res.redirect("signInsigninaA");
+    }
+    if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
+        req.session.isAuth=1;
+        req.session.fullname=user.name;
+
+        const url=req.query.url || "/admin/productController"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
+        return res.redirect(url);
+    }
+    //şifre uyuşmuyorsa
+    req.session.message={text:"Şifre hatali",class:"warning"};
+    res.redirect("signina");
+    
+}

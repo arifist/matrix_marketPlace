@@ -78,9 +78,7 @@ exports.productDetails=(req,res,next)=>{
 }
 
 exports.signInGet=(req,res,next)=>{
-
     res.render("user/signIn",{userArray:userArray})
-    
 }
 
 exports.signInPost=async(req,res,next)=>{
@@ -95,6 +93,7 @@ exports.signInPost=async(req,res,next)=>{
         req.session.fullname=user.name;
 
         const url=req.query.url || "/user/"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
+        console.log(url);
         return res.redirect(url);
     }
     //şifre uyuşmuyorsa

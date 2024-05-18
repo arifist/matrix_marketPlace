@@ -12,4 +12,4 @@ const authdata=[
         }
     ]
 
-    module.exports=authdata;
+module.exports=authdata;

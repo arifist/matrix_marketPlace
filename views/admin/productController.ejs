@@ -246,7 +246,7 @@
 
 </style>
 <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../partials/anavbar.ejs') %>
 
 
     <div class="container">
@@ -264,9 +264,7 @@
                             <div class="btn-group">
                                 <a href="/admin/productDetails/<%= element.product_id %>" class="btn btn-sm btn-outline-secondary">View</a> <!-- Değişiklik burada -->
                             </div>
-                            <div class="btn-group">
-                                <a href="/admin/productAdd/" class="btn btn-sm btn-success ">Add</a> <!-- Değişiklik burada -->
-                            </div>
+ 
                             <div class="btn-group">
                                 <a href="/admin/productUpdate/<%= element.product_id %>" class="btn btn-sm btn-info ">Update</a> <!-- Değişiklik burada -->
                             </div>
