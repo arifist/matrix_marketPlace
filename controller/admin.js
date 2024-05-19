@@ -5,6 +5,7 @@ const db=require("../model/db");
 const path = require('path');
 const adminLoginData=require("../model/adminlogindata");
 const bcrypt = require('bcrypt');
+const productArray=require("../model/dataAccess");
 
 exports.productController = (req, res, next) => {
     db.all(`SELECT 
@@ -29,6 +30,10 @@ exports.productController = (req, res, next) => {
 });
 };
 
+exports.productDetailsAdmin=(req,res,next)=>{
+
+    res.render("admin/productDetailsAdmin.ejs",{productArray:productArray,id:req.params.id})
+}
 
 exports.productAdd = (req, res, next) => {
     res.render("admin/productAdd");
@@ -142,28 +147,59 @@ exports.productDeletePost = (req, res, next) => {
 
 
 exports.adminSignInGet=(req,res,next)=>{
-     res.render("admin/signin")
+    const email=req.cookies.email;
+    const password=req.cookies.password;
+
+     res.render("admin/signin",{authInfo:{email:email,password:password}})
     //res.render(path.join(__dirname,"../","views","admin","signina.ejs"));
 
     
 }
 
+
+
 exports.adminSignInPost=async(req,res,next)=>{
 
     const user=adminLoginData.find(x=>x.email==req.body.email);
     if (user==undefined) {
-        req.session.message={text:"Email hatali",class:"warning"}
         return res.redirect("signin");
     }
     if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
         req.session.isAuth=1;
         req.session.fullname=user.name;
 
+        if (req.body.cbhatirla=="1"){ 
+            res.cookie("email",req.body.email);
+            res.cookie("password",req.body.password);
+        }
+        else{
+            res.clearCookie("email");
+            res.clearCookie("password"); 
+        }
         const url=req.query.url || "/admin/productController"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
         return res.redirect(url);
     }
     //şifre uyuşmuyorsa
-    req.session.message={text:"Şifre hatali",class:"warning"};
     res.redirect("signin");
     
 }
+
+// exports.adminSignInPost=async(req,res,next)=>{
+
+//     const user=adminLoginData.find(x=>x.email==req.body.email);
+//     if (user==undefined) {
+//         req.session.message={text:"Email hatali",class:"warning"}
+//         return res.redirect("signin");
+//     }
+//     if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
+//         req.session.isAuth=1;
+//         req.session.fullname=user.name;
+
+//         const url=req.query.url || "/admin/productController"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
+//         return res.redirect(url);
+//     }
+//     //şifre uyuşmuyorsa
+//     req.session.message={text:"Şifre hatali",class:"warning"};
+//     res.redirect("signin");
+    
+// }

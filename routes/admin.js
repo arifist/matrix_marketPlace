@@ -5,6 +5,8 @@ const isAuth=require("../middleware/isAuth")
 
 router.get("/productController",isAuth,adminController.productController);
 
+router.get("/productDetails/:id",isAuth,adminController.productDetailsAdmin);
+
 router.get("/productAdd",isAuth,adminController.productAdd);
 
 router.post("/productAdd",isAuth,adminController.productAddPost);

@@ -61,12 +61,32 @@
             margin-top: 5px;
             text-align: center; /* Hata mesajının ortalanması */
         }
+        .admin-btn {
+            margin-top: 10px;
+        }
+        .admin-btn button {
+            background-color: #F9A826; /* Admin butonu arka plan rengi */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .admin-btn button:hover {
+            background-color: #F57C00; /* Admin butonu hover arka plan rengi */
+        }
+        button[type="submit"],
+        .admin-btn button {
+            font-size: 16px; /* Her iki buton için aynı font boyutunu ayarlıyoruz */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Matrix E-Ticaret</h2>
-        <h3>Admin Oturum Aç</h3>
+        <h3>Admin Oturumu Aç</h3>
         <form action="" method="post"> 
             <% if (typeof(message)!="undefined") { %>
                 <div class="alert  alert-<%=message.class%> "><%=message.text %></div>
@@ -74,28 +94,30 @@
                                  
             <div class="row mb-3">
                 <div class="col-sm-8">
-                    <input name="email" type="email" class="form-control" placeholder="Admin Email" required>
+                    <input name="email" type="email" class="form-control" value="<%=authInfo.email%>" placeholder="Admin Email" required>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col-sm-8">
-                    <input name="password" type="password" class="form-control" placeholder="Admin Şifre" required>
+                    <input name="password" type="password" class="form-control" value="<%=authInfo.password%>" placeholder="Admin Şifre" required>
                 </div>
             </div>
             <div class="mb-3  form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"  
-            name="cbhatirla"> 
-            <label class="form-check-label" for="exampleCheck1">Beni hatırla</label>
-        </div>
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1"  
+                name="cbhatirla" <%=authInfo.password?"checked":null%>> 
+                <label class="form-check-label" for="exampleCheck1">Beni hatırla</label>
+            </div>
             <div class="row mb-3">
                 <div class="col-sm-8 offset-sm-2">
                     <button type="submit" class="btn btn-primary" id="btnkaydet">Admin Oturum Aç</button>
-                    <a href="reset-password" class="btn btn-danger ">Parolayı Sıfırla</a>
-                    <!--"/acount/reset-password" şeklinde de verilebilir.--> 
+ 
                 </div>        
             </div>           
         </form>
+        <div class="admin-btn">
+            <button onclick="window.location.href='/user/signin'">Kullanıcı Girişi</button>
+        </div>
         <div class="register">
             Henüz bir hesabınız yok mu? <a href="/user/signUp">Hemen Kaydol</a>
         </div>

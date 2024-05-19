@@ -3,7 +3,7 @@ module.exports=(req,res,next)=>{
         //herhangi bir url'den yetkisiz giriş yapılmaya çalışılırsa giriş sayfasına o url'de göreliyor ve giriş yapıldıktan sonra
         //bu url'ye yönlendirme yapılacaktır.   
         // return res.redirect("/user/signIn"); 
-        return res.redirect("/user/signin"); 
+        return res.redirect("/admin/signin"); 
 
     }
 

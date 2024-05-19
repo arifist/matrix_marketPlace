@@ -52,25 +52,6 @@ exports.productAll = (req, res, next) => {
     });
 };
 
-// exports.productAll=async (req,res,next)=>{
-//     const selectedData=await db.execute(`SELECT 
-//     p.id AS product_id,
-//     p.name AS product_name,
-//     p.price AS product_price,
-//     p.imageUrl AS product_imageUrl,
-//     p.productDetail AS product_productDetail,
-//     GROUP_CONCAT(c.id) AS comment_ids,
-//     GROUP_CONCAT(c.text) AS comment_texts
-//     FROM 
-//         products p
-//     LEFT JOIN 
-//         comments c ON p.id = c.productId
-//     GROUP BY
-//         p.id;`);
-//     console.log(selectedData);
-
-//     res.render("user/products",{productArray:selectedData[0]})
-// }
 
 exports.productDetails=(req,res,next)=>{
 
@@ -78,30 +59,59 @@ exports.productDetails=(req,res,next)=>{
 }
 
 exports.signInGet=(req,res,next)=>{
-    res.render("user/signIn",{userArray:userArray})
+    const email=req.cookies.email;
+    const password=req.cookies.password;
+
+    res.render("user/signIn",{userArray:userArray,authInfo:{email:email,password:password}})
 }
+
+// exports.signInPost=async(req,res,next)=>{
+
+//     const user=loginData.find(x=>x.email==req.body.email);
+//     if (user==undefined) {
+//         req.session.message={text:"Email hatali",class:"warning"}
+//         return res.redirect("signin");
+//     }
+//     if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
+//         req.session.isAuth=1;
+//         req.session.fullname=user.name;
+
+//         const url=req.query.url || "/user/"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
+//         console.log(url);
+//         return res.redirect(url);
+//     }
+//     //şifre uyuşmuyorsa
+//     req.session.message={text:"Şifre hatali",class:"warning"};
+//     res.redirect("signin");
+    
+// }
 
 exports.signInPost=async(req,res,next)=>{
 
     const user=loginData.find(x=>x.email==req.body.email);
     if (user==undefined) {
-        req.session.message={text:"Email hatali",class:"warning"}
         return res.redirect("signin");
     }
+
     if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
         req.session.isAuth=1;
         req.session.fullname=user.name;
 
+        if (req.body.cbhatirla=="1"){ 
+            res.cookie("email",req.body.email);
+            res.cookie("password",req.body.password);
+        }
+        else{
+            res.clearCookie("email");
+            res.clearCookie("password"); 
+        }
         const url=req.query.url || "/user/"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
-        console.log(url);
         return res.redirect(url);
     }
     //şifre uyuşmuyorsa
-    req.session.message={text:"Şifre hatali",class:"warning"};
     res.redirect("signin");
     
 }
-
 
 exports.signUp=(req,res,next)=>{
 

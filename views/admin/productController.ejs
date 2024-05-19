@@ -243,7 +243,12 @@
   .login-button:hover {
       background-color: #DBE2EF; /* Değiştirilen renk */
   }
-
+  .custom-outline {
+            border-width: 2px !important; /* Çizgi kalınlığını burada ayarlayın */
+            font-weight: bold;
+            width: 70px; /* Buton genişliğini burada ayarlayın */
+            text-align: center; /* Metni ortala */
+        }
 </style>
 <body>
     <%- include('../partials/anavbar.ejs') %>
@@ -255,21 +260,21 @@
                 <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                     <div class="card-body">
-                        <a href="/user/productDetails/<%= element.product_id %>"> <!-- Değişiklik burada -->
+                        <a href="/admin/productDetails/<%= element.product_id %>"> <!-- Değişiklik burada -->
                             <img src="<%= element.product_imageUrl %>" alt="<%= element.product_name %>" class="card-img-top" style="height: 425px; object-fit: cover;">
                         </a>
                         <h5 class="card-title"><%= element.product_name %></h5>
                         <p class="card-text"><strong>Price:</strong> <%= element.product_price %> TL</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a href="/admin/productDetails/<%= element.product_id %>" class="btn btn-sm btn-outline-secondary">View</a> <!-- Değişiklik burada -->
+                                <a href="/admin/productDetails/<%= element.product_id %>" class="btn btn-sm btn-outline-success custom-outline ">View</a> <!-- Değişiklik burada -->
                             </div>
  
                             <div class="btn-group">
-                                <a href="/admin/productUpdate/<%= element.product_id %>" class="btn btn-sm btn-info ">Update</a> <!-- Değişiklik burada -->
+                                <a href="/admin/productUpdate/<%= element.product_id %>" class="btn btn-sm btn-outline-primary custom-outline ">Update</a> <!-- Değişiklik burada -->
                             </div>
                             <div class="btn-group">
-                                <a href="/admin/productDelete/<%= element.product_id %>" class="btn btn-sm btn-danger">Delete</a> <!-- Değiştirilen renk -->
+                                <a href="/admin/productDelete/<%= element.product_id %>" class="btn btn-sm btn-outline-danger custom-outline">Delete</a> <!-- Değiştirilen renk -->
                             </div>
                             
                             <small class="text-muted">9 mins</small>
