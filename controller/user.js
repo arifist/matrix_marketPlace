@@ -61,35 +61,43 @@ exports.productDetails=(req,res,next)=>{
 exports.signInGet=(req,res,next)=>{
     const email=req.cookies.email;
     const password=req.cookies.password;
+    const message=req.session.message;    
 
-    res.render("user/signIn",{userArray:userArray,authInfo:{email:email,password:password}})
+    res.render("user/signIn",{
+        userArray:userArray,
+        message:message,
+        authInfo:{email:email,password:password},
+        csrfToken:req.csrfToken()
+
+    });
 }
-
-// exports.signInPost=async(req,res,next)=>{
-
-//     const user=loginData.find(x=>x.email==req.body.email);
-//     if (user==undefined) {
-//         req.session.message={text:"Email hatali",class:"warning"}
-//         return res.redirect("signin");
-//     }
-//     if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
-//         req.session.isAuth=1;
-//         req.session.fullname=user.name;
-
-//         const url=req.query.url || "/user/"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
-//         console.log(url);
-//         return res.redirect(url);
-//     }
-//     //şifre uyuşmuyorsa
-//     req.session.message={text:"Şifre hatali",class:"warning"};
-//     res.redirect("signin");
-    
-// }
 
 exports.signInPost=async(req,res,next)=>{
 
     const user=loginData.find(x=>x.email==req.body.email);
     if (user==undefined) {
+        req.session.message={text:"Email hatali",class:"warning"}
+        return res.redirect("signin");
+    }
+    if (await bcrypt.compare(req.body.password,user.password)){ //şifre uyuşuyorsa
+        req.session.isAuth=1;
+        req.session.fullname=user.name;
+
+        const url=req.query.url || "/user/"; //req.query.url varsa onu yoksa "/admin/list/anc" url olarak kabul et.
+        console.log(url);
+        return res.redirect(url);
+    }
+    //şifre uyuşmuyorsa
+    req.session.message={text:"Şifre hatali",class:"warning"};
+    res.redirect("signin");
+    
+}
+
+exports.signInPost=async(req,res,next)=>{
+
+    const user=loginData.find(x=>x.email==req.body.email);
+    if (user==undefined) {
+        req.session.message={text:"Email hatalı",class:"warning"}
         return res.redirect("signin");
     }
 
@@ -109,15 +117,22 @@ exports.signInPost=async(req,res,next)=>{
         return res.redirect(url);
     }
     //şifre uyuşmuyorsa
+    req.session.message={text:"Şifre hatalı",class:"warning"};
     res.redirect("signin");
     
 }
+
+
 
 exports.signUp=(req,res,next)=>{
 
     res.render(path.join(__dirname,"../","views","user","signUp.ejs"));
 }
 
+exports.signout=async(req,res)=>{
+    await req.session.destroy(); //session temizle
+    res.redirect("/user/signin"); //ana sayfaya git
+}
 
 exports.cart=(req,res,next)=>{
 

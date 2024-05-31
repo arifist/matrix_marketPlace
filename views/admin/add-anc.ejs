@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head') %>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #F9F7F7; /* Değiştirilen renk */
+          color: #112D4E; /* Değiştirilen renk */
+      }
+    
+      .container {
+          max-width: 1200px;
+          margin: auto;
+          overflow: hidden;
+      }
+    
+      header {
+          background-color: #DBE2EF; /* Değiştirilen renk */
+          padding: 10px 0;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hafif bir gölgelendirme */
+      }
+    
+      .logo {
+          font-size: 24px; /* Logo font boyutu büyütüldü */
+          color: #112D4E; /* Değiştirilen renk */
+      }
+    
+      .product {
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          margin-bottom: 20px;
+      }
+    
+      .product img {
+          width: 100%;
+          border-radius: 10px;
+      }
+    
+      .product h3 {
+          margin-top: 0;
+      }
+    
+      button {
+          background-color: #3F72AF; /* Değiştirilen renk */
+          color: #fff; /* Buton metin rengi */
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+    
+      button:hover {
+          background-color: #112D4E; /* Değiştirilen renk */
+      }
+    
+      footer {
+          background-color: #112D4E; /* Değiştirilen renk */
+          color: #fff;
+          text-align: center;
+          padding: 10px 0;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+      }
+    
+      .top-bar {
+          background-color: #112D4E; /* Değiştirilen renk */
+          color: #fff;
+          padding: 10px 0;
+          text-align: center;
+      }
+    
+      .top-bar .container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+      }
+    
+      .cart-icon {
+          font-size: 24px;
+          color: #fff;
+          text-decoration: none;
+          margin-right: 20px;
+      }
+    
+      .categories {
+          position: relative;
+          display: inline-block;
+      }
+    
+      .categories:hover .dropdown-content {
+          display: block;
+      }
+    
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #112D4E; /* Değiştirilen renk */
+          min-width: 160px;
+          z-index: 1;
+      }
+    
+      .dropdown-content a {
+          color: #fff;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          text-align: left;
+      }
+    
+      .dropdown-content a:hover {
+          background-color: #3F72AF; /* Değiştirilen renk */
+      }
+    
+      .container {
+          max-width: 1200px;
+          margin: auto;
+          overflow: hidden;
+      }
+    
+      .product-list {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 20px; /* Ürünler arası boşluk */
+      }
+    
+      .product {
+          flex: 0 0 calc(33.33% - 20px); /* Üç ürün eşit genişlikte olacak, aralarında 20px boşluk */
+          /*  flex: 0 0 calc(50% - 10px); /* İki ürün eşit genişlikte olacak, aralarında 20px boşluk */
+          max-width: calc(33.33% - 20px);
+          box-sizing: border-box;
+          border: 1px solid #ccc; /* Gri renkli sınır */
+          border-radius: 10px;
+          padding: 20px;
+          background-color: #fff; /* Beyaz arkaplan */
+          overflow: hidden;
+      }
+    
+      .product img {
+          width: 100%;
+          border-radius: 10px;
+          margin-bottom: 15px; /* Resim ile diğer içerik arasında boşluk */
+      }
+    
+      .product h3 {
+          margin-top: 0;
+      }
+    
+      .product p {
+          margin-bottom: 15px;
+      }
+    
+      .product button {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          border: none;
+          background-color: #3F72AF; /* Mavi renk */
+          color: #fff; /* Beyaz renk */
+          border-radius: 5px;
+          cursor: pointer;
+      }
+    
+      .product button:hover {
+          background-color: #112D4E; /* Koyu mavi hover'da */
+      }
+    
+      /* Arama çubuğu stilleri */
+      .search-container {
+          position: relative;
+          width: 100%;
+          max-width: 500px;
+          margin: auto;
+      }
+    
+      .search-container input[type=text] {
+          width: calc(100% - 90px);
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+          outline: none;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+    
+      .search-container button {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 10px 15px;
+          border: none;
+          background-color: #f0f0f0; /* Arka plan rengi */
+          color: #666; /* Gri renk */
+          border-radius: 0 5px 5px 0;
+          cursor: pointer;
+          transition: background-color 0.3s ease; /* Hover geçiş efekti */
+      }
+    
+      .search-container button:hover {
+          background-color: #ddd; /* Koyu mavi hover'da */
+      }
+    
+      nav ul {
+          list-style: none;
+          padding: 0;
+      }
+    
+      nav ul li {
+          display: inline;
+          margin: 0 10px;
+      }
+    
+      nav ul li a {
+          color: #112D4E; /* Navbar linklerinin rengi */
+          text-decoration: none;
+      }
+    
+      nav ul li a:hover {
+          color: #3F72AF; /* Hover etkisinde navbar linklerinin rengi */
+      }
+    
+      main {
+          padding: 20px;
+      }
+    
+      /* Oturum aç butonu stilleri */
+    /* Oturum aç butonu stilleri */
+      .login-button {
+          background-color: #F9F7F7; /* Değiştirilen renk */
+          color: #112D4E; /* Değiştirilen renk */
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          text-decoration: none;
+          transition: background-color 0.3s ease; /* Hover geçiş efekti */
+      }
+    
+      .login-button:hover {
+          background-color: #DBE2EF; /* Değiştirilen renk */
+      }
+      .custom-outline {
+                border-width: 2px !important; /* Çizgi kalınlığını burada ayarlayın */
+                font-weight: bold;
+                width: 70px; /* Buton genişliğini burada ayarlayın */
+                text-align: center; /* Metni ortala */
+            }
+    </style>
+<body>
+  <%- include('../partials/anavbar') %>
+
+  <!-- Page content -->
+  <div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+          <div class="col-sm-8 bg-light ms-2 border border-info mt-3">
+            <% if (typeof(contentTitle)!="undefined") { %>
+              <h1 class="mt-4"><%=contentTitle%></h1>
+              <% } %>
+              <form method="post" class="mt-4">
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Tittle">
+                    <input type="hidden" name="_csrf" value="<%=csrfToken%>"
+                  </div>
+                  <div class="row mb-2 mt-3">
+                      <label for="title" class="col-sm-3 col-form-label">Anouncment Title</label>
+                      <div class="col-sm-9">
+                          <input type="text" class="form-control" id="title" name="title" placeholder="Tittle">
+                      </div>
+                  </div>
+                  <div class="row mb-2">
+                      <label for="explain" class="col-sm-3 col-form-label">Anouncment Explain</label>
+                      <div class="col-sm-9">
+                          <!-- <input type="text" class="form-control" id="explain" name="explain" placeholder="explain"> -->
+                          <textarea name="explain" id="explain"></textarea>
+                      </div>
+                  </div>
+                  <div class="row mb-2">
+                      <div class="col-sm-3">Is home</div>
+                      <div class="col-sm-9 form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck1" name="isActive">
+                          <label class="form-check-label" for="gridCheck1">
+                              is Home
+                          </label>
+                      </div>
+                  </div>
+                  <div class="row justify-content-end mb-2">
+                      <div class="col-sm-9">
+                          <button type="submit" class="btn btn-primary">Add</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Custom script -->
+  <!-- Custom script -->
+  <script>
+      // Your custom scripts here
+  </script>
+
+  <%- include('../partials/footer.ejs') %>
+</body>
+</html>

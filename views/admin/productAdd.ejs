@@ -70,15 +70,24 @@
         <h2>Matrix E-Ticaret</h2>
         <h3>Ürün Ekle</h3>
         <form id="productForm" method="post" action="/admin/productAdd">
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Tittle">
+                <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+            </div>
+
+            <label for="id"></label>
+            <input type="number" id="id" name="id" placeholder="Ürün Id" required><br>
+
             <label for="productName"></label>
             <input type="text" id="productName" name="productName" placeholder="Ürün Adı" required><br>
-        
+
             <label for="productPrice"></label>
             <input type="number" id="productPrice" name="productPrice" placeholder="Ürün Fiyatı" required><br>
         
-            <label for="imageUrl"></label>
-            <input type="text" id="imageUrl" name="imageUrl" placeholder="Resim URL'si"><br>
         
+            <label for="imageUrl"></label>
+            <input type="text" id="imageUrl" name="imageUrl" placeholder="Ürün Resmi" required><br>
+
             <label for="productDetail"></label>
             <textarea id="productDetail" name="productDetail" placeholder="Ürün Detayı" rows="4"></textarea><br>
         

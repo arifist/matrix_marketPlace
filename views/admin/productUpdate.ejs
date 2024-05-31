@@ -70,6 +70,10 @@
         <h2>Matrix E-Ticaret</h2>
         <h3>Ürün Güncelle</h3>
         <form id="updateForm" method="post" action="/admin/productUpdate/<%= id %>">
+            <div class="col-sm-9">
+                <input type="hidden" name="_csrf" value="<%=csrfToken%>"
+            </div>
+
             <input type="hidden" name="id" value=<%= id %>>
             
             <label for="productName">Ürün Adı:</label>

@@ -70,6 +70,10 @@
         <h2>Matrix E-Ticaret</h2>
         <h3>Ürün Sil</h3>
         <form id="updateForm" method="post" action="/admin/productDelete/<%= id %>">
+            <div class="col-sm-9">
+                <input type="hidden" name="_csrf" value="<%=csrfToken%>"
+            </div>
+
             <input type="hidden" name="id" value="<%= id %>">
             <label for="productId">Ürün Adı:</label>
             <input type="text" id="productId" name="productId" value="<%= productArray.find(product => product.product_id == id).product_id %>" required><br>

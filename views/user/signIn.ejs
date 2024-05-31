@@ -89,9 +89,11 @@
         <h3>Kullanıcı Oturumu Aç</h3>
         <form action="" method="post"> 
             <% if (typeof(message)!="undefined") { %>
-                <div class="alert  alert-<%=message.class%> "><%=message.text %></div>
+                <div class="alert  alert-<%=message.class%> " style="color: red;"><%=message.text %></div>
             <% } %>
             <div class="row mb-3">
+                <input type="hidden" name="_csrf" value="<%=csrfToken%>"
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-8">
                     <input name="email" type="email" class="form-control" value="<%=authInfo.email%>" placeholder="Email" required>
                 </div>

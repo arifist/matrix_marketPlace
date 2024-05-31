@@ -6,6 +6,7 @@ const app= express();
 const bodyParser = require('body-parser');
 const configSession=require("./middleware/config_Session.js");
 const cookieParser = require('cookie-parser')
+const csurf=require("csurf"); 
 
 //temlate engine setting
 app.set('view engine', 'ejs');
@@ -16,16 +17,22 @@ app.use((req,res,next) => {
     next();
 });
 
+app.use("/static", express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "node_modules")));
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(configSession);
 app.use(cookieParser());
+app.use(csurf()); 
 
 
 app.use("/admin",adminRouter);
 app.use("/user",userRouter);
 
-app.use("/static", express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "node_modules")));
+//deneme
+// const csrfProtection = csrf({ cookie: true });
+// app.use(csrfProtection);
 
 //error handler
 app.use((err,req,res,next)=>{

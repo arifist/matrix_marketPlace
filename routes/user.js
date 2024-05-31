@@ -2,6 +2,7 @@ const express = require("express");
 const router= express.Router();
 const userController=require("../controller/user");
 const isAuth=require("../middleware/isAuth")
+const csrfToken=require("../middleware/csrf");
 
 
 router.get("/",userController.homePage);
@@ -14,7 +15,7 @@ router.get("/products",userController.productAll);
 
 router.get("/productDetails/:id",userController.productDetails);
 
-router.get("/signin",userController.signInGet);
+router.get("/signin",csrfToken,userController.signInGet);
 
 router.post("/signin",userController.signInPost);
 
