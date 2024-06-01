@@ -8,14 +8,16 @@ const configSession=require("./middleware/config_Session.js");
 const cookieParser = require('cookie-parser')
 const csurf=require("csurf"); 
 
+
 //temlate engine setting
 app.set('view engine', 'ejs');
 
-app.use((req,res,next) => {
-    //loglama yapılabilir
-    //res.send("İlk sayfa");
+app.use("/", (req, res, next) => {
+
     next();
 });
+
+
 
 app.use("/static", express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "node_modules")));

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Admin Routes -->
+    <url>
+        <loc>https://www.orneksite.com/productController</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/productDetails/1</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/productAdd</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/productUpdate/1</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/productDelete/1</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/signin</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/list/anc</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/delete/anc/1</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/add/anc</loc>
+    </url>
+
+    <!-- User Routes -->
+    <url>
+        <loc>https://www.orneksite.com/</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/about</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/communication</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/products</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/productDetails/1</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/signin</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/signup</loc>
+    </url>
+    <url>
+        <loc>https://www.orneksite.com/cart/1</loc>
+    </url>
+</urlset>

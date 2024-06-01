@@ -6,10 +6,34 @@ const userArray=require("../model/data");
 const db=require("../model/db");
 const loginData=require("../model/logindata");
 const bcrypt = require('bcrypt');
+const fs = require('fs');
 
-exports.homePage=(req,res,next)=>{
-    // res.render(path.join(__dirname,"../","views","user","home-page.ejs"));
-    res.render("user/home-page.ejs",{productArray:productArray})
+let homePageVisits = 0;
+
+// Dosyadan ziyaretçi sayısını oku
+fs.readFile('visitorCount.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.error("Error reading file:", err);
+        return;
+    }
+    homePageVisits = parseInt(data) || 0;
+    console.log("Initial visitor count:", homePageVisits);
+});
+
+exports.homePage = (req, res, next) => {
+    homePageVisits++;
+    console.log("Total visitors:", homePageVisits);
+
+    // Dosyaya ziyaretçi sayısını yaz
+    fs.writeFile('visitorCount.txt', homePageVisits.toString(), (err) => {
+        if (err) {
+            console.error("Error writing file:", err);
+            return;
+        }
+        console.log("Visitor count saved to file.");
+    });
+
+    res.render("user/home-page.ejs", { productArray: productArray, homePageVisits: homePageVisits });
 }
 
 exports.about=(req,res,next)=>{
